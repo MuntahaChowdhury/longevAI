@@ -7,10 +7,20 @@ export type HealthAnalysisInput = {
   smoking?: boolean;
   drinkingUnitsPerWeek?: number;
   screenHoursPerDay?: number;
-  stressLevel?: number; // expected 0-10
+  stressLevel?: number;
 };
 
-export const healthAnalysisSystemPrompt = `
+function formatValue(
+  value: string | number | boolean | undefined,
+  suffix = ""
+): string {
+  if (value === undefined) return "unknown";
+  if (typeof value === "boolean") return value ? "true" : "false";
+  return `${value}${suffix}`;
+}
+
+export function makeHealthAnalysisSystemPrompt(): string {
+  return `
 You are a health analytics engine responsible for estimating organ-level biological aging signals from structured health inputs.
 
 Your job is to estimate relative biological age for different organs based ONLY on the provided health data.
@@ -51,14 +61,6 @@ Return exactly this JSON shape:
   ]
 }
 `.trim();
-
-function formatValue(
-  value: string | number | boolean | undefined,
-  suffix = ""
-): string {
-  if (value === undefined) return "unknown";
-  if (typeof value === "boolean") return value ? "true" : "false";
-  return `${value}${suffix}`;
 }
 
 export function makeHealthAnalysisUserPrompt(data: HealthAnalysisInput): string {
@@ -106,4 +108,5 @@ Return output in this exact format:
 `.trim();
 }
 
+export const systemPrompt = makeHealthAnalysisSystemPrompt;
 export const makeUserPrompt = makeHealthAnalysisUserPrompt;
