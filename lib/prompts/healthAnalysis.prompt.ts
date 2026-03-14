@@ -63,7 +63,7 @@ Return exactly this JSON shape:
 `.trim();
 }
 
-export function makeHealthAnalysisUserPrompt(data: HealthAnalysisInput): string {
+export function PromptAnalyzeH(data: HealthAnalysisInput): string {
   return `
 Here is the user's health data:
 
@@ -109,7 +109,7 @@ Return output in this exact format:
 }
 
 export const systemPrompt = makeHealthAnalysisSystemPrompt;
-export const makeUserPrompt = makeHealthAnalysisUserPrompt;
+export const makeUserPrompt = PromptAnalyzeH;
 
 export function promptAnalyzeRisk(data: HealthAnalysisInput): string {
   return `
