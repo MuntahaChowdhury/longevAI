@@ -17,19 +17,19 @@ export async function callGemini(prompt: string) {
       body: JSON.stringify({
         contents: [
           {
+            role: "user",
             parts: [{ text: prompt }],
           },
         ],
         generationConfig: {
           temperature: GEMINI_CONFIG.temperature,
+          responseMimeType: "application/json",
         },
       }),
     }
   );
 
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Gemini API Error:", errorText);
     throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
   }
 
@@ -41,5 +41,10 @@ export async function callGemini(prompt: string) {
     throw new Error("Unexpected response format from Gemini API");
   }
 
-  return textOutput;
+  // 🔥 Safely parse JSON
+  try {
+    return JSON.parse(textOutput);
+  } catch (err) {
+    throw new Error("Gemini did not return valid JSON.");
+  }
 }
