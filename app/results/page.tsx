@@ -6,8 +6,8 @@ export default function ResultsPage() {
   return (
     <div className="min-h-screen bg-black text-white p-6 md:p-12 overflow-hidden relative flex flex-col items-center">
       {/* Cinematic Ambient Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[var(--color-organ-liver)]/10 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[var(--color-organ-lungs)]/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-[150px] pointer-events-none"></div>
 
       <header className="w-full max-w-6xl mb-12 text-center z-10 relative mt-10">
         <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">
@@ -30,24 +30,29 @@ export default function ResultsPage() {
             <h2 className="text-xl text-white/90 mb-6 tracking-wide font-light border-b border-white/10 pb-4">Top 3 Risks</h2>
             
             <ul className="space-y-6">
+              {/* Smoking - RED */}
               <li className="flex items-center gap-4">
-                <div className="w-4 h-4 rounded-full bg-[var(--color-organ-lungs)] shadow-[0_0_15px_var(--color-organ-lungs)]"></div>
+                <div className="w-4 h-4 rounded-full bg-[#EF4444] shadow-[0_0_15px_#EF4444]"></div>
                 <div>
-                  <p className="text-white/90 font-medium text-lg">Smoking <span className="text-[var(--color-organ-lungs)]">(+10 years)</span></p>
+                  <p className="text-white/90 font-medium text-lg">Smoking <span className="text-[#EF4444]">(+10 years)</span></p>
                   <p className="text-sm text-white/50">Severely impacting lung capacity and cellular aging.</p>
                 </div>
               </li>
+              
+              {/* Drinking - RED */}
               <li className="flex items-center gap-4">
-                <div className="w-4 h-4 rounded-full bg-[var(--color-organ-liver)] shadow-[0_0_15px_var(--color-organ-liver)]"></div>
+                <div className="w-4 h-4 rounded-full bg-[#EF4444] shadow-[0_0_15px_#EF4444]"></div>
                 <div>
-                  <p className="text-white/90 font-medium text-lg">Drinking <span className="text-[var(--color-organ-liver)]">(+5 years)</span></p>
+                  <p className="text-white/90 font-medium text-lg">Drinking <span className="text-[#EF4444]">(+5 years)</span></p>
                   <p className="text-sm text-white/50">Frequent alcohol consumption straining liver function.</p>
                 </div>
               </li>
+              
+              {/* Screentime - YELLOW */}
               <li className="flex items-center gap-4">
-                <div className="w-4 h-4 rounded-full bg-[var(--color-organ-eyes)] shadow-[0_0_15px_var(--color-organ-eyes)]"></div>
+                <div className="w-4 h-4 rounded-full bg-[#FACC15] shadow-[0_0_15px_#FACC15]"></div>
                 <div>
-                  <p className="text-white/90 font-medium text-lg">Screentime <span className="text-[var(--color-organ-eyes)]">(+5 years)</span></p>
+                  <p className="text-white/90 font-medium text-lg">Screentime <span className="text-[#FACC15]">(+5 years)</span></p>
                   <p className="text-sm text-white/50">High daily exposure causing severe eye strain.</p>
                 </div>
               </li>

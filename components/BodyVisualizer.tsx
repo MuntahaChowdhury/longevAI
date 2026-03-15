@@ -1,13 +1,12 @@
 'use client';
 import { useState } from 'react';
 
-// You will change these 'top' and 'left' percentages to move the dots!
 const organCoordinates = [
-  { id: 'brain', label: 'Brain (+2 yrs - Sleep)', color: '#FACC15', top: '18%', left: '50%' },
-  { id: 'eyes', label: 'Eyes (+5 yrs - Screen)', color: '#C084FC', top: '20.75%', left: '52.9%' },
-  { id: 'lungs', label: 'Lungs (+10 yrs - Smoking)', color: '#F472B6', top: '32%', left: '57%' },
-  { id: 'heart', label: 'Heart (On track! - Exercise)', color: '#EF4444', top: '35%', left: '50%' },
-  { id: 'liver', label: 'Liver (+5 yrs - Drinking)', color: '#60A5FA', top: '40%', left: '50%' },
+  { id: 'brain', label: <>Brain (Your sleeping habits is aging you <strong>+2 yrs</strong>)</>, color: '#FACC15', top: '18%', left: '50%' }, // Yellow (Moderate)
+  { id: 'eyes', label: <>Eyes (Your screen time is aging you <strong>+5 yrs</strong>)</>, color: '#FACC15', top: '20.75%', left: '52.9%' }, // Yellow (Moderate)
+  { id: 'lungs', label: <>Lungs (Your smoking habit is aging you <strong>+10 yrs</strong>)</>, color: '#EF4444', top: '32%', left: '57%' }, // Red (Severe)
+  { id: 'heart', label: <>Heart (<strong>You're on track!</strong>)</>, color: '#22C55E', top: '35%', left: '50%' }, // Green (On Track)
+  { id: 'liver', label: <>Liver (Your drinking habit is aging you <strong>+5 yrs</strong>)</>, color: '#EF4444', top: '40%', left: '50%' }, // Red (Severe)
 ];
 
 export default function BodyVisualizer() {
