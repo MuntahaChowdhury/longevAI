@@ -1,10 +1,9 @@
-- user registration
-- user confirmation of inferred traits
 - comparing followups with past results
-- calculate total progress
 
 
 [[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]
 
 - calculating things and sending info to frontend
 - making recommendations and sending to frontend
+- user registration
+- user confirmation of inferred traits
