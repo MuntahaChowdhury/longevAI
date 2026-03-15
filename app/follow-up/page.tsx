@@ -61,8 +61,8 @@ export default function FollowUpChatPage() {
   }));
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col items-center overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <div className="relative min-h-[92vh] max-h-[92vh] bg-black flex flex-col items-center overflow-y-auto overflow-x-hidden">
+      <div className="absolute top-0 left-1/4 w-[600px] h-[92vh] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none"></div>
 
       <header className="w-full max-w-3xl flex justify-center py-6 z-10 sticky top-0 bg-black/50 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <h1 className="text-xl font-light tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-white to-emerald-400">

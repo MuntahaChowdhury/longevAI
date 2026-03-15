@@ -16,11 +16,12 @@ FLOW:
 import calculateHealth from "@/lib/analysis/calculateHealth";
 import { insertRow } from "@/db/supabase.config"; // adjust path if needed
 import { HealthOutput } from "@/lib/types/health.types";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
+    console.log(body)
     // Basic validation
     if (!body) {
       return Response.json(
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
     });
 
     // 3️⃣ Return result to frontend
-    return Response.json(resHealth);
+    return NextResponse.json({resHealth});
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

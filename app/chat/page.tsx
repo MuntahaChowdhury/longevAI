@@ -14,7 +14,7 @@ export default function HabitsChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -29,12 +29,28 @@ export default function HabitsChatPage() {
 
   // Magic word logic
   useEffect(() => {
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.role === 'assistant' && lastMessage.content.includes('CALCULATING_RESULTS')) {
-      setTimeout(() => {
-        router.push('/results');
-      }, 2500);
+    const asyncFunc = async () => {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage?.role === 'assistant' && lastMessage.content.includes('CALCULATING_RESULTS')) {
+        try {
+          const user_id = localStorage.getItem("user_id") ?? "8a714bcc-2337-4513-9050-d2cd344aa9f6";
+          const res = await fetch('/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: user_id, messages: messages })
+          });
+          const data = await res.json();
+          localStorage.setItem("gemini_health", JSON.stringify(data));
+        } catch (err) {
+          console.error("Analyze failed:", err);
+        }
+
+        setTimeout(() => {
+          router.push('/results');
+        }, 2500);
+      }
     }
+    asyncFunc();
   }, [messages, router]);
 
   const handleSend = async (e: React.FormEvent) => {
@@ -76,8 +92,8 @@ export default function HabitsChatPage() {
   }));
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col items-center overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-white/5 rounded-full blur-[150px] pointer-events-none"></div>
+    <div className="relative max-h-[92vh] min-h-[92vh] bg-black flex-1 flex-col items-center overflow-y-auto overflow-x-hidden">
+      <div className="absolute top-0 left-1/4 w-[600px] h-[92vh] bg-white/5 rounded-full blur-[150px] pointer-events-none"></div>
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-organ-liver)]/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <header className="w-full max-w-3xl flex justify-center py-6 z-10 sticky top-0 bg-black/50 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
@@ -86,13 +102,12 @@ export default function HabitsChatPage() {
         </h1>
       </header>
 
-      <main className="flex-1 w-full max-w-3xl p-4 sm:p-6 overflow-y-auto space-y-6 z-10 pb-32" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <main className="flex-1 w-full max-w-3xl p-4 sm:p-6 overflow-y-auto space-y-6 z-10 pb-32" style={{ scrollbarWidth: 'none', msOverflowStyle: 'auto' }}>
         {displayMessages.map((msg) => (
           <div key={msg.id} className={`flex w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] sm:max-w-[70%] p-4 rounded-2xl text-[15px] leading-relaxed tracking-wide shadow-lg ${
-                msg.role === 'user'
-                  ? 'bg-white text-black rounded-br-sm' 
-                  : 'bg-white/10 backdrop-blur-md border border-white/10 text-white/90 rounded-bl-sm shadow-[0_4px_30px_rgba(255,255,255,0.05)]' 
+            <div className={`max-w-[80%] sm:max-w-[70%] p-4 rounded-2xl text-[15px] leading-relaxed tracking-wide shadow-lg ${msg.role === 'user'
+              ? 'bg-white text-black rounded-br-sm'
+              : 'bg-white/10 backdrop-blur-md border border-white/10 text-white/90 rounded-bl-sm shadow-[0_4px_30px_rgba(255,255,255,0.05)]'
               }`}>
               {msg.content}
             </div>

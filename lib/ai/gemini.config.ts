@@ -1,7 +1,7 @@
 // lib/ai/gemini.config.ts
 
 export const GEMINI_CONFIG = {
-  apiKey: process.env.GEMINI_API_KEY ?? "AIzaSyAfsyteZd_lgcPvodS7C2c5uqoRUL9Fye8",
-  model: "gemini-2.0-flash",
+  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+  model: "gemini-2.5-flash-lite",
   temperature: 0.2,
 };

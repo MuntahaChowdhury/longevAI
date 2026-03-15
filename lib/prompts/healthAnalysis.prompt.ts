@@ -46,7 +46,8 @@ Return EXACTLY this JSON shape:
       "organ": "heart" | "lungs" | "brain" | "eyes" | "liver",
       "biological_age": number,
       "risk_level": number,
-      "reasoning_short": string
+      "reasoning_short": string,
+      "reasoning_habit": "sleeping habits" | "drinking habits" | "screen time" | "smoking habits" | "On track"
     }
   ],
   "primary_risks": [
@@ -90,8 +91,8 @@ Return EXACTLY this JSON shape:
 
 SCORING RULES:
 - overall_score: 0–100 (higher = healthier)
-- risk_level: integer 1–5
-- biological_age: realistic age estimate in years
+- risk_level: integer 1–5 (1 being worst, 5 being best)
+- biological_age: realistic age estimate in years. Your final value must subtract the real age
 - organs MUST contain exactly 5 items:
   heart, lungs, brain, eyes, liver
 `.trim();
@@ -101,19 +102,22 @@ SCORING RULES:
    USER DATA PROMPT
 ==================================================== */
 
-export function buildFullHealthPrompt(data: HealthInput): string {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function buildFullHealthPrompt(data: any): string {
   return `
-User Health Data:
 
-Age: ${data.age}
-Height: ${formatValue(data.heightCm, " cm")}
-Weight: ${formatValue(data.weightKg, " kg")}
-Sleep: ${formatValue(data.sleepHoursPerNight, " hours per night")}
-Exercise: ${formatValue(data.exerciseMinutesPerWeek, " minutes per week")}
-Smoking: ${formatValue(data.smoking)}
-Drinking: ${formatValue(data.drinkingUnitsPerWeek, " units per week")}
-Screen time: ${formatValue(data.screenHoursPerDay, " hours per day")}
-
+- Analyze user health data and chat context.
+- Infer habits and behavioral traits.
+- Identify positive traits and areas for improvement.
+- Be conservative and objective.
+- Do NOT diagnose.
+- Do NOT give medical advice.
+- Output valid JSON only.
+to get:
+User Health Data: Age, Height, Weight, Sleep, Exercise, Smoking, Drinking, Screen time,
+by analyzing ${data}
+ 
+Then
 Analyze:
 - Organ biological aging
 - Health risks
@@ -347,3 +351,13 @@ Be concise. Be conservative. Return valid JSON only.
 // ${promptMakeRec(data)}
 // `.trim();
 // }
+
+
+// Age: ${data.age}
+// Height: ${formatValue(data.heightCm, " cm")}
+// Weight: ${formatValue(data.weightKg, " kg")}
+// Sleep: ${formatValue(data.sleepHoursPerNight, " hours per night")}
+// Exercise: ${formatValue(data.exerciseMinutesPerWeek, " minutes per week")}
+// Smoking: ${formatValue(data.smoking)}
+// Drinking: ${formatValue(data.drinkingUnitsPerWeek, " units per week")}
+// Screen time: ${formatValue(data.screenHoursPerDay, " hours per day")}
