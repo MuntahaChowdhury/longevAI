@@ -88,12 +88,7 @@ Return EXACTLY this JSON shape:
   "motivational_message": string
 }
 
-SCORING RULES:
-- overall_score: 0–100 (higher = healthier)
-- risk_level: integer 1–5 (1 being worst, 5 being best)
-- biological_age: Plus how many has years this organ aged due eto the traits/habits (should NOT be more than 10 years than the user's actual age)
-- organs MUST contain exactly 5 items:
-  heart, lungs, brain, eyes, liver
+
 `.trim();
 }
 
@@ -125,6 +120,13 @@ Analyze:
 - Practical recommendations
 
 Be concise. Be conservative. Return valid JSON only.
+
+SCORING RULES:
+- overall_score: 0–100 (higher = healthier)
+- risk_level: integer 1–5 (1 being worst, 5 being best)
+- biological_age: Plus how many has years this organ aged due eto the traits/habits. This age can not be less than the user's age. It can't be more than 15 years of the user's age
+- organs MUST contain exactly 5 items:
+  heart, lungs, brain, eyes, liver
 `.trim();
 }
 
