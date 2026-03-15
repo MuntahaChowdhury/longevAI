@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import Link from 'next/link';
 import BodyVisualizer from '../../components/BodyVisualizer';
@@ -17,11 +18,11 @@ export default function ResultsPage() {
           console.log('Health data:', healthData)
         }
         asyncFunc();
-      } catch (err) {
+      } catch {
         console.error("Invalid cookie JSON");
       }
     }
-  }, []);
+  }, [healthData]);
 
   return (
     <div className="min-h-screen bg-black text-white p-6 md:p-12 overflow-hidden relative flex flex-col items-center">

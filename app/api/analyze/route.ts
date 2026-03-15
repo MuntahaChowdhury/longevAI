@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 1️⃣ Run AI analysis (IMPORTANT: pass body)
-    const resHealth = await calculateHealth(body) as HealthOutput;
+    const resHealth = await calculateHealth({...body.messages, ...body.demographic}) as HealthOutput;
 
     // 2️⃣ Save to Supabase
     await insertRow("health_analyses", {

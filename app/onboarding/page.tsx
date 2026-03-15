@@ -20,6 +20,7 @@ export default function OnboardingPage() {
       setStep(step + 1);
     } else {
       // Moves to the chat page when the form is done
+      localStorage.setItem('demographic', JSON.stringify(formData));
       router.push('/chat');
     }
   };

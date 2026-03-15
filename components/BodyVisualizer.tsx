@@ -52,20 +52,21 @@ export default function BodyVisualizer({ organs }: BodyVisualizerProps) {
   const organCoordinates =
     organs?.map((organ) => ({
       id: organ.organ,
-      label: (
-        <>
-          {organ.organ.charAt(0).toUpperCase() + organ.organ.slice(1)} (
-          {organ.biological_age > 0 ? (
-            <>
-              Your {organ.reasoning_habit} is aged to{" "}
-              <strong>{organ.biological_age} yrs</strong>
-            </>
-          ) : (
-            <strong>You&apos;re on track!</strong>
-          )}
-          )
-        </>
-      ),
+      // label: (
+      //   <>
+      //     {organ.organ.charAt(0).toUpperCase() + organ.organ.slice(1)} (
+      //     {organ.biological_age > 0 ? (
+      //       <>
+      //         Your {organ.reasoning_habit} is aged to{" "}
+      //         <strong>{organ.biological_age} yrs</strong>
+      //       </>
+      //     ) : (
+      //       <strong>You&apos;re on track!</strong>
+      //     )}
+      //     )
+      //   </>
+      // ),
+      label: organ.reasoning_short,
       color: getColor(organ.risk_level),
       top: getPosition(organ.organ).top,
       left: getPosition(organ.organ).left,
@@ -98,7 +99,7 @@ export default function BodyVisualizer({ organs }: BodyVisualizerProps) {
             >
               {/* Tooltip */}
               <div
-                className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-4 py-2 rounded-xl bg-black/90 border border-white/20 backdrop-blur-xl text-sm font-medium tracking-wide transition-all duration-300 pointer-events-none z-30
+                className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-4 py-2 rounded-xl bg-black/90 border border-white/20 backdrop-blur-xl text-[6px] font-medium tracking-wide transition-all duration-300 pointer-events-none z-30
                 ${isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'}`}
                 style={{ color: organ.color, boxShadow: `0 4px 20px ${organ.color}50` }}
               >

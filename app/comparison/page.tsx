@@ -2,8 +2,36 @@
 import Link from 'next/link';
 import BodyVisualizer from '../../components/BodyVisualizer';
 import BodyVisualizerWeek2 from '../../components/BodyVisualizerWeek2';
+import { useEffect, useState } from "react";
 
 export default function ComparisonPage() {
+  const [healthData, setHealthData] = useState<any>(null);
+  const [prevhealthData, setprevHealthData] = useState<any>(null);
+
+  useEffect(() => {
+    const cookie = localStorage.getItem("gemini_health");
+
+    if (cookie) {
+      try {
+        const asyncFunc = async () => {
+          const parsed = JSON.parse(cookie);
+          setHealthData(parsed.resHealth);
+
+
+          const res = await fetch('/api/followup', {
+            method: 'POSTS',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const data = await res.json();
+          setprevHealthData(data)
+        }
+        asyncFunc();
+      } catch {
+        console.error("Invalid cookie JSON");
+      }
+    }
+  }, [healthData]);
+
   return (
     <div className="min-h-screen bg-black text-white p-6 md:p-12 overflow-x-hidden relative flex flex-col items-center">
       {/* Cinematic Ambient Glows */}
@@ -21,20 +49,20 @@ export default function ComparisonPage() {
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 z-10 relative mb-16">
         <div className="flex flex-col items-center gap-6">
           <h2 className="text-xl font-light text-white/50 tracking-widest uppercase">Week 1</h2>
-          <BodyVisualizer />
+          {healthData && <BodyVisualizer organs={healthData.organs} />}
         </div>
         <div className="flex flex-col items-center gap-6">
           <h2 className="text-xl font-light text-emerald-400 tracking-widest uppercase drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">Week 2</h2>
-          <BodyVisualizerWeek2 />
+          {healthData && <BodyVisualizerWeek2 organs={healthData.organs} />}
         </div>
       </div>
 
       {/* SUMMARY TILES */}
       <div className="w-full max-w-5xl z-10 space-y-6">
         <h3 className="text-2xl font-light text-white/80 border-b border-white/10 pb-4">Habit Breakdown</h3>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
+
           {/* IMPROVED TILE */}
           <div className="p-6 rounded-3xl border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(16,185,129,0.1)] hover:bg-emerald-500/10 transition-all">
             <div className="flex items-center gap-2 mb-4">
@@ -94,9 +122,9 @@ export default function ComparisonPage() {
 
         {/* Start Over Button */}
         <div className="flex justify-center pt-10 pb-20">
-            <Link href="/" className="px-8 py-4 rounded-full border border-white/20 bg-transparent hover:bg-white/10 text-white font-medium transition-all">
-              Restart Assessment
-            </Link>
+          <Link href="/" className="px-8 py-4 rounded-full border border-white/20 bg-transparent hover:bg-white/10 text-white font-medium transition-all">
+            Restart Assessment
+          </Link>
         </div>
 
       </div>

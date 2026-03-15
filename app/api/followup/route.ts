@@ -17,12 +17,10 @@ export async function POST(req: Request) {
 
     // The new Follow-Up script!
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-lite',
       systemInstruction: `You are LongevAI, following up with a user after one week. 
       They had 3 specific goals:
-      1. Get an extra hour of sleep.
-      2. Cut back on smoking.
-      3. Exercise 3 times this week.
+      ${goals}
 
       CRITICAL INSTRUCTIONS: 
       - Ask about ONE goal at a time. Do not ask about the next goal until the user has answered the current one.

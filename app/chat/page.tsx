@@ -34,10 +34,11 @@ export default function HabitsChatPage() {
       if (lastMessage?.role === 'assistant' && lastMessage.content.includes('CALCULATING_RESULTS')) {
         try {
           const user_id = localStorage.getItem("user_id") ?? "8a714bcc-2337-4513-9050-d2cd344aa9f6";
+          const demographic = localStorage.getItem("demographic");
           const res = await fetch('/api/analyze', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: user_id, messages: messages })
+            body: JSON.stringify({ user_id: user_id, messages: messages, demographic: demographic})
           });
           const data = await res.json();
           localStorage.setItem("gemini_health", JSON.stringify(data));

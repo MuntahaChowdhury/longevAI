@@ -47,7 +47,6 @@ Return EXACTLY this JSON shape:
       "biological_age": number,
       "risk_level": number,
       "reasoning_short": string,
-      "reasoning_habit": "sleeping habits" | "drinking habits" | "screen time" | "smoking habits" | "On track"
     }
   ],
   "primary_risks": [
@@ -92,7 +91,7 @@ Return EXACTLY this JSON shape:
 SCORING RULES:
 - overall_score: 0–100 (higher = healthier)
 - risk_level: integer 1–5 (1 being worst, 5 being best)
-- biological_age: realistic age estimate in years. Your final value must subtract the real age
+- biological_age: Plus how many has this organ aged due eto the traits/habits
 - organs MUST contain exactly 5 items:
   heart, lungs, brain, eyes, liver
 `.trim();
