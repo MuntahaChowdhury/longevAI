@@ -110,7 +110,7 @@ export default function BodyVisualizer({ organs }: BodyVisualizerProps) {
                 ${isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'}`}
                 style={{ color: organ.color, boxShadow: `0 4px 20px ${organ.color}50` }}
               >
-                <strong><i>You {organ.id} is aged to {organ.age} years.</i></strong> {organ.label}
+                <strong><i>Your {organ.id} is aged to {organ.age} years.</i></strong> {organ.label}
               </div>
 
 
