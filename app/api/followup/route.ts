@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from '@/db/supabase.config';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
 
     const recommendations =
       analyses[0].analysis.recommendations
-        .map(r => `- ${r.action}`)
+        .map((r:any) => `- ${r.action}`)
         .join("\n");
 
     // The new Follow-Up script!
