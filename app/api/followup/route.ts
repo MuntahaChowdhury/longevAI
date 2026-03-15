@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       .from("health_analyses")
       .select("analysis")
       .order("created_at", { ascending: false })
-      .limit(2);
+      .limit(1);
 
     if (error) throw error;
 

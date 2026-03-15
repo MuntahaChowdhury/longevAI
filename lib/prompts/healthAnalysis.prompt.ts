@@ -91,7 +91,7 @@ Return EXACTLY this JSON shape:
 SCORING RULES:
 - overall_score: 0–100 (higher = healthier)
 - risk_level: integer 1–5 (1 being worst, 5 being best)
-- biological_age: Plus how many has this organ aged due eto the traits/habits
+- biological_age: Plus how many has years this organ aged due eto the traits/habits (should NOT be more than 10 years than the user's actual age)
 - organs MUST contain exactly 5 items:
   heart, lungs, brain, eyes, liver
 `.trim();
