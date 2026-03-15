@@ -54,6 +54,16 @@ Return EXACTLY this JSON shape:
       "risk_factor": string,
       "severity": "low" | "medium" | "high",
       "description": string
+    },
+    {
+      "risk_factor": string,
+      "severity": "low" | "medium" | "high",
+      "description": string
+    },
+    {
+      "risk_factor": string,
+      "severity": "low" | "medium" | "high",
+      "description": string
     }
   ],
   "positive_traits": [
