@@ -68,7 +68,7 @@ Example heuristic signals:
 - Poor sleep → +4 years  
 - Smoking → +6 years  
 - Inactivity → +3 years  
-- Dental neglect → +1 year  
+- Screen time → +1 year  
 
 These values are **illustrative lifestyle indicators**, not medical diagnoses.
 
