@@ -1,26 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
-import { supabase } from "@/db/supabase.config"; 
-// (use server client so it reads cookies)
+import { supabase } from "@/db/supabase.config";
 
-export async function GET() {
+export async function POST() {
   try {
 
-    // Get logged-in user
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // Get last two analyses
+    // Get last two analyses for this user
     const { data: analyses, error } = await supabase
-      .from("analyses")
-      .select("*")
-      .eq("user_id", user.id)
+      .from("health_analyses")
+      .select("analysis")
+      .eq("user_id", "8a714bcc-2337-4513-9050-d2cd344aa9f6")
       .order("created_at", { ascending: false })
       .limit(2);
 
@@ -33,36 +21,25 @@ export async function GET() {
     }
 
     const [latest, previous] = analyses;
-
-    // Calculate overall score progress
     const overallChange =
-      latest.overall_score - previous.overall_score;
-
-    // Organ progress
-    const organProgress: any = {};
-
-    for (const organ of latest.organs) {
-      const prevOrgan = previous.organs.find(
-        (o: any) => o.organ === organ.organ
-      );
-
-      if (prevOrgan) {
-        organProgress[organ.organ] =
-          prevOrgan.biological_age - organ.biological_age;
-      }
-    }
+      latest.analysis.overall_score - previous.analysis.overall_score;
 
     return NextResponse.json({
+      latest: latest.analysis,
+      previous: previous.analysis,
       overall_score_change: overallChange,
-      organ_progress: organProgress,
-      latest_analysis_id: latest.id,
     });
+
+
   } catch (error) {
     console.error("Progress error:", error);
+
 
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
     );
+
+
   }
 }

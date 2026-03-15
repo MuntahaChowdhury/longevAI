@@ -67,6 +67,7 @@ export default function BodyVisualizer({ organs }: BodyVisualizerProps) {
       //   </>
       // ),
       label: organ.reasoning_short,
+      age: organ.biological_age,
       color: getColor(organ.risk_level),
       top: getPosition(organ.organ).top,
       left: getPosition(organ.organ).left,
@@ -97,20 +98,21 @@ export default function BodyVisualizer({ organs }: BodyVisualizerProps) {
               onMouseEnter={() => setHoveredOrgan(organ.id)}
               onMouseLeave={() => setHoveredOrgan(null)}
             >
+              {/* The Small Ring Marker (Visible when NOT hovered) */}
+              {!hoveredOrgan && <div
+                className={`absolute rounded-full transition-all duration-300 z-0 ${isHovered ? 'w-full h-full opacity-0' : 'w-3 h-3 opacity-100'}`}
+                style={{ border: `2px solid ${organ.color}`, backgroundColor: `${organ.color}30`, boxShadow: `0 0 10px ${organ.color}` }}
+              />}
               {/* Tooltip */}
+              
               <div
-                className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-4 py-2 rounded-xl bg-black/90 border border-white/20 backdrop-blur-xl text-[6px] font-medium tracking-wide transition-all duration-300 pointer-events-none z-30
+                className={`absolute bottom-0 left-1/2 -translate-x-1/2 mb-2 w-40 px-4 py-2 rounded-xl bg-black/90 border border-white/20 backdrop-blur-xl text-[8px] font-medium tracking-wide transition-all duration-300 pointer-events-none z-[999]
                 ${isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'}`}
                 style={{ color: organ.color, boxShadow: `0 4px 20px ${organ.color}50` }}
               >
-                {organ.label}
+                <strong><i>You {organ.id} is aged to {organ.age} years.</i></strong> {organ.label}
               </div>
 
-              {/* The Small Ring Marker (Visible when NOT hovered) */}
-              <div
-                className={`absolute rounded-full transition-all duration-300 ${isHovered ? 'w-full h-full opacity-0' : 'w-3 h-3 opacity-100'}`}
-                style={{ border: `2px solid ${organ.color}`, backgroundColor: `${organ.color}30`, boxShadow: `0 0 10px ${organ.color}` }}
-              />
 
               {/* The Massive Neon Glow (Visible ONLY when hovered) */}
               <div
