@@ -80,7 +80,7 @@ export default function ResultsPage() {
 
           {/* Navigation */}
           <div className="pt-6">
-            <Link href="/check-in" className="flex items-center justify-center w-full px-8 py-5 rounded-full bg-white text-black text-lg font-medium hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+            <Link href="/follow-up" className="flex items-center justify-center w-full px-8 py-5 rounded-full bg-white text-black text-lg font-medium hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
               Come back in one week →
             </Link>
           </div>
